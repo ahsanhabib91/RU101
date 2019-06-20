@@ -1,0 +1,12 @@
+SET student:name "Habib" // store the value
+SET student:name "Habib" XX // save the value only if the key exists. i.e. update
+SET student:name "Habib" NX // store the value only if the key does not exists.
+SET student:name "Habib" PX 50000 // save the value with setTime 50000 miliseconds
+SET student:name "Habib" EX 50 // save the value with setTime 50000 seconds
+
+GET student:name // get the value
+
+TTL student:name // Returns the remaining time to live of a key that has a timeout
+
+DEL student:name // delete the value(blocking)
+UNLINK student:name // get the value(non-blocking. Just unlink the key and remove it asynchronously)
