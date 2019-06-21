@@ -10,3 +10,22 @@ TTL student:name // Returns the remaining time to live of a key that has a timeo
 
 DEL student:name // delete the value(blocking)
 UNLINK student:name // get the value(non-blocking. Just unlink the key and remove it asynchronously)
+
+SET student:age 29
+SET student:firstname Ahsan
+SET student:lastname "Habib"
+DECRBY student:age 3 // some commands will look at the data type and encoding to verify whether the command can be applied
+TYPE student:age // "string"
+OBJECT ENCODING student:age // "int"
+OBJECT ENCODING student:firstname // "embstr"
+OBJECT ENCODING student:lastname // "embstr"
+
+
+
+
+
+
+
+
+
+
