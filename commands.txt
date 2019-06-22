@@ -1,8 +1,27 @@
+// Redis KEYs are printable ASCII which can be of 512MB
+
+/* STRING */
 SET student:name "Habib" // store the value
 SET student:name "Habib" XX // save the value only if the key exists. i.e. update
 SET student:name "Habib" NX // store the value only if the key does not exists.
 SET student:name "Habib" PX 50000 // save the value with setTime 50000 miliseconds
 SET student:name "Habib" EX 50 // save the value with setTime 50000 seconds
+SETEX mykey 10 "Hello" // Set key to hold the string value and set key to timeout after a given number of seconds. This command is equivalent to executing the following commands: "SET mykey 'Hello'" then "EXPIRE mykey 10". 
+PSETEX mykey 1000 "Hello" // SET the value in miliseconds
+SETNX mykey "Hello" // "SET if Not eXists"
+MSET key1 "Hello" key2 "World" // set multiple key_values. MSET is atomic, so all given keys are set at once.
+
+SET mykey "10"
+INCR mykey // Increments the number stored at key by one.
+INCRBY mykey 5 // Increments the number stored at key by increment(5 in this case)
+DECR mykey // Decrements the number stored at key by one
+DECRBY mykey 3 // Decrements the number stored at key by decrement(3 in this case)
+
+APPEND mykey "Hello"
+APPEND mykey " World"
+GET mykey // "Hello World"
+
+STRLEN mykey // get the lenght of mykey
 
 GET student:name // get the value
 
@@ -22,7 +41,19 @@ OBJECT ENCODING student:lastname // "embstr"
 
 
 
-
+/* HASH */
+// 1 Hash can store upto 1 billion field-value pairs
+HMSET myhash field1 "Hello" field2 "World" // Sets the specified fields to their respective values in the hash stored at key.
+HSETNX myhash field "World" // SET the field value if the field does not exist
+HGET myhash field1 // GET value of a single field
+HMGET myhash field1 field2 nofield // GET values of multiple fields. Returns the values associated with the specified fields in the hash stored at key.
+HGETALL myhash // Returns all fields and values of the hash stored at key. In the returned value, every field name is followed by its value, so the length of the reply is twice the size of the hash.
+HEXISTS myhash field2 // check the existence of field2 in HASH myhash.
+HDEL myhash field1 field1 // Removes the specified fields from the hash stored at key
+HKEYS myhash // Returns all field names in the hash stored at key
+HVALS myhash // Returns all values in the hash stored at key
+HINCRBY myhash field 5 // Increments the number stored at field in the hash stored at key by increment
+HLEN myhash // Returns the number of fields contained in the hash stored at key
 
 
 
