@@ -40,7 +40,6 @@ OBJECT ENCODING student:firstname // "embstr"
 OBJECT ENCODING student:lastname // "embstr"
 
 
-
 /* HASH */
 // 1 Hash can store upto 1 billion field-value pairs
 HMSET myhash field1 "Hello" field2 "World" // Sets the specified fields to their respective values in the hash stored at key.
@@ -54,6 +53,64 @@ HKEYS myhash // Returns all field names in the hash stored at key
 HVALS myhash // Returns all values in the hash stored at key
 HINCRBY myhash field 5 // Increments the number stored at field in the hash stored at key by increment
 HLEN myhash // Returns the number of fields contained in the hash stored at key
+
+
+/* Lists */
+LPUSH mylist "world" 1 2 3 4 5 "Hello" // Insert all the specified values at the head of the list stored at key
+LRANGE mylist 0 6 // Returns the specified elements of the list stored at key.
+LRANGE mylist 0 -1 // These offsets can also be negative numbers indicating offsets starting at the end of the list. For example, -1 is the last element of the list, -2 the penultimate, and so on.
+LPOP mylist // Removes and returns the first element of the list stored at key
+RPUSH mylist "hello" // Insert all the specified values at the tail of the list stored at key
+RPOP mylist // Removes and returns the last element of the list stored at key
+LLEN mylist // Returns the length of the list stored at key
+LINDEX mylist 0 // Returns the element at index index in the list stored at key
+LSET mylist 3 "four" // Sets the list element at index to value. SET/Update the value at the mentioned index
+LPUSHX myotherlist "Hello" // Inserts value at the head of the list stored at key, only if key already exists and holds a list
+LINSERT mylist BEFORE "World" "There" // Inserts value in the list stored at key either before or after the reference value pivot
+LINSERT mylist AFTER "World" "There" // Inserts value in the list stored at key either before or after the reference value pivot
+
+
+/* SETs */
+SADD myset "Hello" // Add the specified members to the set stored at key
+SMEMBERS myset // Returns all the members of the set value stored at key
+SCARD myset // Returns the set cardinality (number of elements) of the set stored at key
+SDIFF key1 key2 // Returns the members of the set resulting from the difference between the first set and all the successive sets
+SDIFFSTORE key key1 key2 // This command is equal to SDIFF, but instead of returning the resulting set, it is stored in destination(key)
+SUNION key1 key2 // Returns the members of the set resulting from the union of all the given sets
+SUNIONSTORE key key1 key2 // This command is equal to SUNION, but instead of returning the resulting set, it is stored in destination(key)
+SINTER key1 key2 // Returns the members of the set resulting from the intersection of all the given sets
+SINTERSTORE key key1 key2 // This command is equal to SINTER, but instead of returning the resulting set, it is stored in destination(key)
+SREM myset "value" // Remove the specified members from the set stored at key
+SPOP myset 3 // Removes and returns one or more random elements from the set value store at key
+SMOVE sourceSet destinationSet "value" // Move member from the set at source to the set at destination. This operation is atomic
+
+
+/* SORTED SETs */
+ZADD myzset 1 "one" 2 "two" 3 "three" 4 "four" 5 "five" // Adds all the specified members with the specified scores to the sorted set stored at key
+ZRANGE myzset 2 3 [WITHSCORES] // Returns the specified range of elements in the sorted set stored at key. The elements are considered to be ordered from the lowest to the highest score. Lexicographical order is used for elements with equal score.
+ZREVRANGE myzset 0 -1 [WITHSCORES] // Returns the specified range of elements in the sorted set stored at key. The elements are considered to be ordered from the highest to the lowest score. Lexicographical order is used for elements with equal score.
+ZRANK myzset "three" // Returns the rank/index of member in the sorted set stored at key, with the scores ordered from low to high
+ZREVRANK myzset "one" // Returns the rank/index of member in the sorted set stored at key, with the scores ordered from high to low
+ZSCORE myzset "one" // Returns the score of member in the sorted set at key
+ZCOUNT myzset 1 (3 // Returns the number of elements in the sorted set at key with a score between min and max. { (1 5 === 1 < score <= 5 }, { (5 (10 === 5 < score < 10 }
+ZRANGEBYSCORE myzset (1 (2 // Returns all the elements in the sorted set at key with a score between min and max (including elements with score equal to min or max). { (1 5 === 1 < score <= 5 }, { (5 (10 === 5 < score < 10 }
+ZREM myzset "two" // Matches by the value not by the Score. Removes the specified members from the sorted set stored at key. Non existing members are ignored.
+ZCARD myzset // Returns the sorted set cardinality (number of elements) or length of the sorted set stored at key
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
